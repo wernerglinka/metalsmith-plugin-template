@@ -1,28 +1,25 @@
 {
+  "github": {
+    "release": true,
+    "releaseName": "metalsmith-plugin-template ${version}",
+    "tokenRef": "GITHUB_TOKEN",
+    "assets": ["metalsmith-plugin-template-*.tgz", "CHANGELOG.md"],
+    "releaseNotes": "cat CHANGELOG.md"
+  },
   "git": {
-    "requireBranch": "main",
     "commitMessage": "Release ${version}",
-    "tagName": "v${version}",
-    "tagAnnotation": "Release v${version}"
+    "commitArgs": ["-S"],
+    "tagAnnotation": "Release ${version}",
+    "tagArgs": ["-s"],
+    "changelog": "npx auto-changelog -u --commit-limit false --ignore-commit-pattern '^((dev|chore|ci):|Release)' --stdout -t https://raw.githubusercontent.com/release-it/release-it/master/templates/changelog-compact.hbs"
+  },
+  "hooks": {
+    "before:init": ["npm run lint", "npm test"],
+    "after:bump": "npx auto-changelog -p --commit-limit false --ignore-commit-pattern '^((dev|chore|ci):|Release)' && git add CHANGELOG.md",
+    "before:github:release": "echo 'Creating tarball...' && npm pack && echo 'Listing tarballs:' && ls -la *.tgz || echo 'No tarballs found'",
+    "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}."
   },
   "npm": {
     "publish": false
-  },
-  "github": {
-    "release": true,
-    "releaseName": "Release ${version}",
-    "autoGenerate": true,
-    "draft": false,
-    "tokenRef": "GITHUB_TOKEN"
-  },
-  "hooks": {
-    "before:init": ["npm run lint:check"],
-    "after:bump": ["npm run changelog", "npm run build"]
-  },
-  "plugins": {
-    "@release-it/conventional-changelog": {
-      "preset": "angular",
-      "infile": "CHANGELOG.md"
-    }
   }
 }
