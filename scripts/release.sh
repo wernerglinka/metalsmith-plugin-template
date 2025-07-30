@@ -81,7 +81,7 @@ fi
 print_status "Starting $RELEASE_TYPE release..."
 
 # Run release-it with the token
-eval $RELEASE_CMD
+npx $RELEASE_CMD
 
 if [ $? -eq 0 ]; then
     print_status "Release completed successfully! 🎉"
