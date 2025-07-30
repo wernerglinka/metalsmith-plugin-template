@@ -1,25 +1,31 @@
 {
+  "git": {
+    "commitMessage": "chore: release v${version}",
+    "requireCleanWorkingDir": true,
+    "requireBranch": "main",
+    "tag": true,
+    "tagName": "v${version}",
+    "push": true,
+    "changelog": "npx auto-changelog --stdout --commit-limit false --unreleased --ignore-commit-pattern '^((dev|chore|ci):|Release)' --template https://raw.githubusercontent.com/release-it/release-it/main/templates/changelog-compact.hbs"
+  },
   "github": {
     "release": true,
-    "releaseName": "metalsmith-plugin-template ${version}",
-    "tokenRef": "GITHUB_TOKEN",
-    "assets": ["metalsmith-plugin-template-*.tgz", "CHANGELOG.md"],
-    "releaseNotes": "cat CHANGELOG.md"
-  },
-  "git": {
-    "commitMessage": "Release ${version}",
-    "commitArgs": ["-S"],
-    "tagAnnotation": "Release ${version}",
-    "tagArgs": ["-s"],
-    "changelog": "npx auto-changelog -u --commit-limit false --ignore-commit-pattern '^((dev|chore|ci):|Release)' --stdout -t https://raw.githubusercontent.com/release-it/release-it/master/templates/changelog-compact.hbs"
-  },
-  "hooks": {
-    "before:init": ["npm run lint", "npm test"],
-    "after:bump": "npx auto-changelog -p --commit-limit false --ignore-commit-pattern '^((dev|chore|ci):|Release)' && git add CHANGELOG.md",
-    "before:github:release": "echo 'Creating tarball...' && npm pack && echo 'Listing tarballs:' && ls -la *.tgz || echo 'No tarballs found'",
-    "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}."
+    "releaseName": "v${version}",
+    "draft": false,
+    "autoGenerate": false,
+    "tokenRef": "GH_TOKEN"
   },
   "npm": {
-    "publish": false
+    "publish": false,
+    "publishPath": "."
+  },
+  "hooks": {
+    "before:init": ["git pull", "npm test", "npm run lint", "npm run format"],
+    "before:git": [
+      "gh --version || (echo 'GitHub CLI not found. Install with: brew install gh' && exit 1)",
+      "gh auth status || (echo 'GitHub CLI not authenticated. Run: gh auth login' && exit 1)"
+    ],
+    "after:bump": "npx auto-changelog -p --commit-limit false --ignore-commit-pattern '^((dev|chore|ci):|Release)' && git add CHANGELOG.md",
+    "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}."
   }
 }
