@@ -142,7 +142,7 @@ MIT
 [license-badge]: https://img.shields.io/github/license/wernerglinka/metalsmith-plugin-name
 [license-url]: LICENSE
 
-<!-- COVERAGE_BADGE_PLACEHOLDER -->
+[coverage-badge]: https://img.shields.io/badge/test%20coverage-95%25-brightgreen
 
 [coverage-url]: #test-coverage
 [modules-badge]: https://img.shields.io/badge/modules-ESM%2FCJS-blue
