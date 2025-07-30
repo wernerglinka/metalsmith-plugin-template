@@ -19,16 +19,18 @@ This is a Metalsmith plugin following Werner Glinka's standards and conventions.
 ## Development Standards
 
 ### Code Style
+
 - **Language**: JavaScript (ES modules, no TypeScript)
 - **Paradigm**: Functional programming patterns
 - **Testing**: Mocha test framework
 - **Documentation**: JSDoc comments for complex functions
 
 ### Plugin Architecture
+
 ```javascript
 // Standard Metalsmith plugin pattern
 export default function pluginName(options = {}) {
-  return function(files, metalsmith, done) {
+  return function (files, metalsmith, done) {
     // Plugin logic here
     done();
   };
@@ -36,6 +38,7 @@ export default function pluginName(options = {}) {
 ```
 
 ### Key Conventions
+
 - Use ESM exports (`export default`)
 - Support both ESM and CommonJS via microbundle
 - Follow functional programming patterns
@@ -52,12 +55,14 @@ export default function pluginName(options = {}) {
 ## Build and Release
 
 ### Available Scripts
+
 - `npm test` - Run all tests with coverage
 - `npm run build` - Build ESM and CommonJS versions
 - `npm run lint` - Fix code style issues
 - `npm run release:patch|minor|major` - Release using GitHub CLI
 
 ### Release Process
+
 - Uses `release-it` with GitHub CLI authentication
 - Automatically generates changelog from commit messages
 - Creates GitHub releases with release notes
@@ -66,9 +71,11 @@ export default function pluginName(options = {}) {
 ## Dependencies
 
 ### Core Dependencies
+
 - **metalsmith** - Peer dependency (^2.5.0)
 
 ### Dev Dependencies
+
 - **microbundle** - Builds ESM/CJS versions
 - **mocha** - Test runner
 - **c8** - Coverage reporting
@@ -78,11 +85,13 @@ export default function pluginName(options = {}) {
 ## Metalsmith Context
 
 ### How Metalsmith Works
+
 1. Reads source files into memory as `files` object
 2. Applies plugins in sequence to transform `files`
 3. Writes transformed files to destination
 
 ### Plugin Development Tips
+
 - `files` object: keys are file paths, values are file objects with `contents` and metadata
 - Always call `done()` callback (with error if needed)
 - Use `metalsmith.metadata()` for global metadata
@@ -90,9 +99,10 @@ export default function pluginName(options = {}) {
 - Handle edge cases (empty files, missing properties)
 
 ### Common Patterns
+
 ```javascript
 // Process specific file types
-Object.keys(files).forEach(filepath => {
+Object.keys(files).forEach((filepath) => {
   if (!filepath.endsWith('.md')) return;
   // Process markdown files
 });

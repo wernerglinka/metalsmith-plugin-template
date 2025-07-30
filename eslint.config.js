@@ -46,7 +46,7 @@ export default [
       'no-console': 'off',
       'max-depth': 'off',
       'max-params': 'off',
-      'complexity': 'off'
+      complexity: 'off'
     }
   }
 ];
