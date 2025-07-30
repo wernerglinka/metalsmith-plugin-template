@@ -1,3 +1,14 @@
+<!--
+TEMPLATE INSTRUCTIONS:
+1. Replace "metalsmith-plugin-name" with your actual plugin name throughout this file
+2. Replace "[describe functionality]" with a brief description of what your plugin does
+3. Update the Features section with actual features
+4. Update the Options table with your plugin's actual options
+5. Replace placeholder examples with real-world use cases
+6. Update all URLs in the badge definitions at the bottom
+7. The coverage badge will be automatically updated by GitHub Actions
+-->
+
 # metalsmith-plugin-name
 
 A Metalsmith plugin to [describe functionality]
@@ -34,11 +45,14 @@ import pluginName from 'metalsmith-plugin-name';
 
 Metalsmith(__dirname)
   .use(pluginName()) // default options
-  .use(pluginName({  // with custom options
-    key: 'customKey',
-    optionalFlag: true,
-    enumOption: 'option2'
-  }))
+  .use(
+    pluginName({
+      // with custom options
+      key: 'customKey',
+      optionalFlag: true,
+      enumOption: 'option2'
+    })
+  )
   .build((err) => {
     if (err) throw err;
   });
@@ -46,40 +60,59 @@ Metalsmith(__dirname)
 
 ### Options
 
-| Option | Description | Type | Default |
-|--------|-------------|------|---------|
-| `key` | Description of the key option | `String` | `'key'` |
-| `optionalFlag` | Description of the optional flag | `Boolean` | `false` |
-| `enumOption` | One of option1, option2, or option3 | `String` | `'option1'` |
+| Option         | Description                         | Type      | Default     |
+| -------------- | ----------------------------------- | --------- | ----------- |
+| `key`          | Description of the key option       | `String`  | `'key'`     |
+| `optionalFlag` | Description of the optional flag    | `Boolean` | `false`     |
+| `enumOption`   | One of option1, option2, or option3 | `String`  | `'option1'` |
 
-### Example: [Specific Use Case]
+## Examples
+
+### Basic Usage
 
 ```js
 import Metalsmith from 'metalsmith';
 import pluginName from 'metalsmith-plugin-name';
 
 Metalsmith(__dirname)
-  .use(pluginName({
-    // Configuration for this specific use case
-  }))
+  .source('./src')
+  .destination('./build')
+  .use(pluginName())
   .build((err) => {
     if (err) throw err;
+    console.log('Build completed!');
   });
 ```
 
-## Test Coverage
+### Advanced Configuration
 
-This plugin is tested using mocha with c8 for code coverage.
+```js
+import Metalsmith from 'metalsmith';
+import pluginName from 'metalsmith-plugin-name';
+
+Metalsmith(__dirname)
+  .source('./src')
+  .destination('./build')
+  .use(
+    pluginName({
+      key: 'customKey',
+      optionalFlag: true,
+      enumOption: 'option2'
+    })
+  )
+  .build((err) => {
+    if (err) throw err;
+    console.log('Build completed with custom options!');
+  });
+```
 
 ## Debug
 
 To enable debug logs, set the `DEBUG` environment variable to `metalsmith-plugin-name*`:
 
-```js
-metalsmith.env('DEBUG', 'metalsmith-plugin-name*')
+```javascript
+metalsmith.env('DEBUG', 'metalsmith-plugin-name*');
 ```
-
-Alternatively, you can set `DEBUG` to `metalsmith:*` to debug all Metalsmith plugins.
 
 ## CLI Usage
 
@@ -108,6 +141,8 @@ MIT
 [metalsmith-url]: https://metalsmith.io
 [license-badge]: https://img.shields.io/github/license/wernerglinka/metalsmith-plugin-name
 [license-url]: LICENSE
-[coverage-badge]: https://img.shields.io/badge/test%20coverage-95%25-brightgreen
+
+<!-- COVERAGE_BADGE_PLACEHOLDER -->
+
 [coverage-url]: #test-coverage
 [modules-badge]: https://img.shields.io/badge/modules-ESM%2FCJS-blue

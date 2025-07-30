@@ -18,8 +18,8 @@ const defaults = {
  * @param {Options} [options] - User provided options
  * @returns {Options} - Normalized options with defaults applied
  */
-function normalizeOptions(options) {
-  return Object.assign({}, defaults, options || {});
+function normalizeOptions( options ) {
+  return Object.assign( {}, defaults, options || {} );
 }
 
 /**
@@ -29,9 +29,9 @@ function normalizeOptions(options) {
  * @param {Options} options - The plugin options
  * @returns {Object} - The processed file
  */
-function processFile(file, path, options) {
+function processFile( file, path, options ) {
   // Example operation - replace with actual implementation
-  if (options.optionalFlag) {
+  if ( options.optionalFlag ) {
     file.processedWithOptions = true;
   }
   
@@ -44,27 +44,27 @@ function processFile(file, path, options) {
  * @param {Options} [options] - Plugin options
  * @returns {import('metalsmith').Plugin} - Metalsmith plugin function
  */
-function pluginName(options) {
-  options = normalizeOptions(options);
+function pluginName( options ) {
+  options = normalizeOptions( options );
 
-  return function pluginName(files, metalsmith, done) {
-    const debug = metalsmith.debug ? metalsmith.debug('metalsmith-plugin-name') : () => {};
-    debug('Running with options: %O', options);
+  return function pluginName( files, metalsmith, done ) {
+    const debug = metalsmith.debug ? metalsmith.debug( 'metalsmith-plugin-name' ) : () => {};
+    debug( 'Running with options: %O', options );
 
     try {
       // Process all files
-      Object.entries(files).forEach(([filepath, file]) => {
+      Object.entries( files ).forEach( ( [filepath, file] ) => {
         // Example filtering logic - customize as needed
-        if (filepath.endsWith('.html')) {
-          processFile(file, filepath, options);
-          debug(`Processed file: ${filepath}`);
+        if ( filepath.endsWith( '.html' ) ) {
+          processFile( file, filepath, options );
+          debug( `Processed file: ${filepath}` );
         }
-      });
+      } );
 
       // Synchronous operation - call done directly
       done();
-    } catch (err) {
-      done(new Error(`metalsmith-plugin-name error: ${err.message}`));
+    } catch ( err ) {
+      done( new Error( `metalsmith-plugin-name error: ${err.message}` ) );
     }
   };
 }
